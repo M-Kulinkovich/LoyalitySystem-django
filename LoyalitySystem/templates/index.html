@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block titile %}Программа лояльности{% endblock %}
+
+
+    {% block content %}
+        <div class="body-content">
+            <div class="cards">
+                <h1>Карты лояльности</h1>
+                    <form  method="get" action ="{% url 'index' %}" >
+                      <input type="search" placeholder=Поиск... aria-label="Search" name="search">
+                    </form>
+                    <div class="display-cards">
+                            {% include 'activeCard.html' %}
+                    </div>
+            </div>
+        </div>
+    {% endblock %}

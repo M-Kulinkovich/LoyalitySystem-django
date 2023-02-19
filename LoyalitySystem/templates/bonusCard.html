@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'loyalitysystem/css/card.css' %}">
+</head>
+<body>
+<div class='content'>
+        {% for el in cards %}
+         <a href="{% url 'cards_info' el.id %}">
+            {% block status %}
+            {% endblock %}
+         </a>
+        {% endfor %}
+</div>
+</body>
+</html>
+

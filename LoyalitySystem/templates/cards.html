@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="body-content">
+    <div class="info">
+        <h1>История активности по карте</h1>
+        <div>
+            <h1>№ {{ cards.series_card }}{{ cards.number_card }} </h1>
+              <h5>Статус карты: {{ cards.status_card }}</h5>
+              <h5>Дата создания: {{ cards.create_date_card }} | Дата окончания: {{ cards.ending_date_card }}</h5>
+              <h5>Итоговая сумма покупок: {{ cards.amount_purchase }}$</h5>
+        </div>
+            <form method="POST" class="button">
+            {% csrf_token %}
+            {% if cards.status_card != "ACTIVE" %}
+            <input type="submit" value="Активировать карту" name="active"/>
+            <input type="submit" value="Удалить карту" name="delete"/>
+            {% endif %}
+            {% if cards.status_card != "INACTIVE" %}
+            <input type="submit" value="Деактивировать карту" name="inactive"/>
+            {% endif %}
+        </form>
+    </div>
+    <div class="orders-info">
+        <h1>Заказы:</h1>
+        {% for order in orders %}
+            <div class="orders-content">
+                <h5> Заказ № {{ order.id }}</h5>
+                <h5>дата заказа: {{ order.date_order}}</h5>
+                <h5>цена заказа cо скидкой: {{ order.discount }}$</h5>
+                <ul>
+                    {% for product in order.products.all %}
+                        <li>{{ product.name }} - {{ product.price }}$ (цена со скидкой: {{ product.discount_price }}$)</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

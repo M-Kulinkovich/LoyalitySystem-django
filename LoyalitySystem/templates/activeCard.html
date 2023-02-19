@@ -1,0 +1,35 @@
+{% extends 'bonusCard.html' %}
+
+{% block status %}
+        {% if el.status_card != "INACTIVE" %}
+             <div class='card'>
+                <div class='top-block'>
+                    <div class='card-active'>
+                        <p>
+                            {{ el.status_card }}
+                        </p>
+                    </div>
+                    <span class='card-name'>
+                        {{el.series_card}}{{el.number_card}}
+              </span>
+                </div>
+                <div class='card-number'>
+                    <p>Bonus card</p>
+                </div>
+                <div class='bottom-block'>
+                    <div class='balance'>
+                        <div>Create/End</div>
+                        <div class='card-date'>
+                            {{el.create_date_card}} / {{el.ending_date_card}}
+                        </div>
+                    </div>
+                    <div class='card-icon'>
+                <span class='circle-left'>
+                  <i class="icon-circle icon-3x "></i>
+                </span>
+                        <i class="icon-circle icon-3x"></i>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block titile %}Удаленные карты{% endblock %}
+
+{% block content %}
+    <div class="body-content">
+        <div class="remove">
+            <h1>Удаленные карты лояльнсоти</h1>
+                <div class="display-cards">
+                    {% include 'inactiveCard.html' %}
+                </div>
+        </div>
+    </div>
+{% endblock %}

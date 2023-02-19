@@ -1,0 +1,27 @@
+.generate{
+    float: left;
+    color: #264c6e;
+    margin-top: 50px;
+    text-align: center;
+    width: 80%;
+}
+
+.form-body {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+select, input {
+    padding:10px;
+    border-radius:15px;
+    border:0;
+    box-shadow:4px 4px 10px rgba(0,0,0,0.06);
+}
+
+.button {
+    margin-top: 10px;
+}
