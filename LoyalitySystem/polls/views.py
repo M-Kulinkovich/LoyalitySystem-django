@@ -6,8 +6,6 @@ import random
 
 
 def index_page(request):
-    cards = Cards.objects.all()
-
     search = request.GET.get('search', '')
     if search:
         cards = Cards.objects.filter(Q(number_card__icontains=search) |
@@ -18,12 +16,19 @@ def index_page(request):
                                      )
     else:
         cards = Cards.objects.all()
-    return render(request, 'index.html', {'cards': cards})
+
+    context = {
+        'cards': cards
+    }
+    return render(request, 'index.html', context=context)
 
 
 def remote_cards_page(request):
     cards = Cards.objects.all()
-    return render(request, 'remoteCard.html', {'cards': cards})
+    context = {
+        'cards': cards
+    }
+    return render(request, 'remoteCard.html', context=context)
 
 
 def generate_cards_page(request):
@@ -38,17 +43,18 @@ def generate_cards_page(request):
             cards = []
             for i in range(number):
                 card_number = random.randint(10000, 99999)
-                card = Cards(series_card=series, number_card=card_number, create_date_card=create_date, ending_date_card=ending_date)
+                card = Cards(series_card=series, number_card=card_number, create_date_card=create_date,
+                             ending_date_card=ending_date)
                 card.save()
                 cards.append(card)
             return redirect('index')
     else:
         form = CardsForm()
-        data = {
-                'form': form,
-                'error': error
-            }
-    return render(request, 'generateCard.html', {'form': form})
+        context = {
+            'form': form,
+            'error': error
+        }
+    return render(request, 'generateCard.html', context=context)
 
 
 def cards_info(request, cards_id):
@@ -56,6 +62,12 @@ def cards_info(request, cards_id):
     cards.update_status()
     orders = cards.orders.all()
     products = [product for order in orders for product in order.products.all()]
+    context = {
+        "cards": cards,
+        "orders": orders,
+        "products": products
+    }
+
     if request.method == "POST":
         if "active" in request.POST:
             cards.status_card = Cards.ACTIVE
@@ -65,4 +77,4 @@ def cards_info(request, cards_id):
             cards.delete()
             return redirect('/')
         cards.save()
-    return render(request, "cards.html", {"cards": cards, "orders": orders, 'products': products})
+    return render(request, "cards.html", context=context)
