@@ -60,7 +60,7 @@ def generate_cards_page(request):
 def cards_info(request, cards_id):
     cards = get_object_or_404(Cards, id=cards_id)
     cards.update_status()
-    orders = cards.orders.all()
+    orders = cards.orders.all().prefetch_related('products')
     products = [product for order in orders for product in order.products.all()]
     context = {
         "cards": cards,

@@ -80,7 +80,7 @@ class Product(models.Model):
     order = models.ForeignKey(Orders, on_delete=models.CASCADE, related_name='products')
     name = models.CharField('Продукт', max_length=128, null=True)
     price = models.FloatField('Цена продукта',)
-    discount_price = models.FloatField('Цена со скидкой',default=0)
+    discount_price = models.FloatField('Цена со скидкой', default=0)
 
     def __str__(self):
         return f'order N{self.order.id} ||{self.name} - {self.price}$ | discount_prise: {self.discount_price}$'
