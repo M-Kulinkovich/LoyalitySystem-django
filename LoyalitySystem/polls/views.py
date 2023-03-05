@@ -18,7 +18,7 @@ def index_page(request):
         cards = Cards.objects.all()
 
     context = {
-        'cards': cards
+        'cards': cards,
     }
     return render(request, 'index.html', context=context)
 
@@ -26,7 +26,7 @@ def index_page(request):
 def remote_cards_page(request):
     cards = Cards.objects.all()
     context = {
-        'cards': cards
+        'cards': cards,
     }
     return render(request, 'remoteCard.html', context=context)
 
@@ -52,7 +52,7 @@ def generate_cards_page(request):
         form = CardsForm()
         context = {
             'form': form,
-            'error': error
+            'error': error,
         }
     return render(request, 'generateCard.html', context=context)
 
@@ -63,18 +63,18 @@ def cards_info(request, cards_id):
     orders = cards.orders.all().prefetch_related('products')
     products = [product for order in orders for product in order.products.all()]
     context = {
-        "cards": cards,
-        "orders": orders,
-        "products": products
+        'cards': cards,
+        'orders': orders,
+        'products': products,
     }
 
-    if request.method == "POST":
-        if "active" in request.POST:
+    if request.method == 'POST':
+        if 'active' in request.POST:
             cards.status_card = Cards.ACTIVE
-        elif "inactive" in request.POST:
+        elif 'inactive' in request.POST:
             cards.status_card = Cards.INACTIVE
-        elif "delete" in request.POST:
+        elif 'delete' in request.POST:
             cards.delete()
             return redirect('/')
         cards.save()
-    return render(request, "cards.html", context=context)
+    return render(request, 'cards.html', context=context)

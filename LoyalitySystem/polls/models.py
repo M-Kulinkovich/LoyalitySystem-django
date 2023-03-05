@@ -5,13 +5,13 @@ from django.utils import timezone
 
 
 class Cards(models.Model):
-    ACTIVE = "ACTIVE"
-    INACTIVE = "INACTIVE"
+    ACTIVE = 'ACTIVE'
+    INACTIVE = 'INACTIVE'
     EXPIRED = 'EXPIRED'
     STATUS = [
         (ACTIVE, 'Active'),
         (INACTIVE, 'Inactive'),
-        (EXPIRED, 'Expired')
+        (EXPIRED, 'Expired'),
     ]
     series_card = models.CharField('Серия карты', max_length=1)
     number_card = models.IntegerField('Номер карты')
@@ -38,8 +38,8 @@ class Cards(models.Model):
                f' amount purchase {self.amount_purchase}$:'
 
     class Meta:
-        verbose_name = "Cards"
-        verbose_name_plural = "Card"
+        verbose_name = 'Cards'
+        verbose_name_plural = 'Card'
 
 
 class Orders(models.Model):
@@ -62,8 +62,8 @@ class Orders(models.Model):
         super(Orders, self).save(*args, **kwargs)
 
     class Meta:
-        verbose_name = "Orders"
-        verbose_name_plural = "Order"
+        verbose_name = 'Orders'
+        verbose_name_plural = 'Order'
 
 
 def update_cards(sender, instance, **kwargs):
@@ -91,8 +91,8 @@ class Product(models.Model):
         super(Product, self).save(*args, **kwargs)
 
     class Meta:
-        verbose_name = "Products"
-        verbose_name_plural = "Product"
+        verbose_name = 'Products'
+        verbose_name_plural = 'Product'
 
 
 def update_order(sender, instance, **kwargs):
