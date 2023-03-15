@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 
 services:
   db:
@@ -14,7 +14,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
-    command: python LoyalitySystem/manage.py runserver 0.0.0.0:8000"
+    command: "python LoyalitySystem/manage.py runserver 0.0.0.0:8000"
     image: loyality_code
     container_name: loyality_code
     ports:

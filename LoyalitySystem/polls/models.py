@@ -21,7 +21,7 @@ class Cards(models.Model):
     last_activity_card = models.DateTimeField('Последняя активность карты', auto_now=True)
     amount_purchase = models.FloatField('Общая сумма покупок по карте', default=0)
     discount_percent = models.IntegerField(
-        'Последняя активность',
+        'Скидка',
         default=1,
         validators=[MinValueValidator(0), MaxValueValidator(100)]
     )
@@ -35,7 +35,7 @@ class Cards(models.Model):
         return f'{self.series_card}{self.number_card} |' \
                f' status: {self.status_card} |' \
                f' discount {self.discount_percent}%' \
-               f' amount purchase {self.amount_purchase}$:'
+               f' amount purchase {self.amount_purchase}$'
 
     class Meta:
         verbose_name = 'Cards'
