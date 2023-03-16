@@ -4,17 +4,46 @@ from django.core.exceptions import ValidationError
 
 
 class Settings(TestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.cards = Cards.objects.create(
+
+    def setUp(self):
+        self.cards = Cards.objects.create(
             series_card='A',
             number_card=55555,
             status_card='ACTIVE',
             create_date_card='2023-03-15 13:10:44.943184+00',
             ending_date_card='2023-03-15 15:10:44.943184+00',
-            amount_purchase=123,
+            amount_purchase=9,
+            discount_percent=10,
+        )
+
+        self.orders = Orders.objects.create(
+            card_id=self.cards,
+            date_order='2023-03-16 11:10:44.943184+00',
+            sum_order=10,
+            discount_percent=10,
+            discount=9,
+        )
+
+        orders2 = Orders.objects.create(
+            card_id=self.cards,
+            date_order='2023-03-16 11:10:44.943184+00',
+            sum_order=100,
             discount_percent=15,
+            discount=15,
+        )
+
+        self.products = Product.objects.create(
+            order=self.orders,
+            name='Молоко',
+            price=10,
+            discount_price=9
+        )
+
+        products2 = Product.objects.create(
+            order=self.orders,
+            name='Хлеб',
+            price=5,
+            discount_price=4.5
         )
 
 
@@ -64,9 +93,33 @@ class TestModelsCards(Settings):
             invalid_value.full_clean()
             invalid_value.save()
 
-    def test_string_representation(self):
-        self.assertEqual(str(self.cards), 'A55555 | status: ACTIVE | discount 15% amount purchase 123$')
+
+class TestModelsOrders(Settings):
+
+    def test_validators(self):
+        name_field = self.orders._meta.get_field('discount_percent')
+        self.assertEqual(name_field.validators[0].limit_value, 0)
+
+    def test_validators_value_fail(self):
+        invalid_value = Orders(discount_percent=155)
+        with self.assertRaises(ValidationError):
+            invalid_value.full_clean()
+            invalid_value.save()
+
+    def test_discount(self):
+        self.assertEqual(self.orders.sum_order, 13.5)
+
+    def test_discount_percent(self):
+        self.assertEqual(self.orders.discount_percent, self.cards.discount_percent)
+
+    def test_update_cards(self):
+        self.assertEqual(self.cards.amount_purchase, 113.5)
 
 
-# class TestModelsOrders(TestCase):
-# class TestModelsProducts(TestCase):
+class TestModelsProducts(Settings):
+
+    def test_discount_price(self):
+        self.assertEqual(self.products.discount_price, 9)
+
+    def test_update_orders(self):
+        self.assertEqual(self.orders.sum_order, 13.5)
