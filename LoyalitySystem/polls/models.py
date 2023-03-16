@@ -69,7 +69,7 @@ class Orders(models.Model):
 def update_cards(sender, instance, **kwargs):
         card = instance.card_id
         if card is not None:
-            card.amount_purchase = sum([orders.discount for orders in card.orders.all()])
+            card.amount_purchase = sum([orders.sum_order for orders in card.orders.all()])
             card.save()
 
 
@@ -98,8 +98,7 @@ class Product(models.Model):
 def update_order(sender, instance, **kwargs):
         order = instance.order
         if order is not None:
-            order.sum_order = sum([product.price for product in order.products.all()])
-            order.discount = sum([product.discount_price for product in order.products.all()])
+            order.sum_order = sum([product.discount_price for product in order.products.all()])
             order.save()
 
 
