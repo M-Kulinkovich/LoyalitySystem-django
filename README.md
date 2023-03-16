@@ -7,15 +7,15 @@
 git clone https://github.com/M-Kulinkovich/LoyalitySystem-django.git
 pip install -r requirements.txt
 ```
-### 2. Run tests
-```
-python manage.py test
-```
-### 3. Migrate & Start Server
+### 2. Migrate & Start Server
 ```
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
+```
+### 3. Run tests
+```
+python manage.py test
 ```
 ### 4. Fill the database with test data
 ```
