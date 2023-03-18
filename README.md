@@ -13,7 +13,11 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
 ```
-### 3. Fill the database with test data
+### 3. Run tests
+```
+python manage.py test
+```
+### 4. Fill the database with test data
 ```
 python manage.py upload_data
 ```
