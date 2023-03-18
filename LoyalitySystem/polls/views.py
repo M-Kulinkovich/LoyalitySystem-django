@@ -3,6 +3,8 @@ from django.db.models import Q
 from .forms import CardsForm
 from .models import *
 import random
+from rest_framework import generics
+from .serializers import CardsSerializer
 
 
 def index_page(request):
@@ -78,3 +80,8 @@ def cards_info(request, cards_id):
             return redirect('/')
         cards.save()
     return render(request, 'cards.html', context=context)
+
+
+class CardAPIList(generics.ListAPIView):
+    queryset = Cards.objects.all()
+    serializer_class = CardsSerializer
