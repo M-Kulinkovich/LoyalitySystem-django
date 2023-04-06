@@ -1,4 +1,4 @@
-from .models import *
+from polls.models import Cards
 from django.forms import ModelForm
 
 

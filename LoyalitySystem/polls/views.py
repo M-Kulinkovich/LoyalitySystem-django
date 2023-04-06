@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
-from .forms import CardsForm
-from .models import *
+from polls.forms import CardsForm
+from polls.models import Cards, Orders, Product
 import random
 from rest_framework import generics
-from .serializers import CardsSerializer
+from polls.serializers import CardsSerializer
 
 
 def index_page(request):

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import *
+from polls.models import Cards
 
 
 class CardsSerializer(serializers.ModelSerializer):
