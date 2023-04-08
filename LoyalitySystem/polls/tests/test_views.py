@@ -31,3 +31,8 @@ class TestLoyalityViews(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(latest_cards.series_card, 'B')
 
+    def test_cards_info(self):
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'bonusCard.html')
+
