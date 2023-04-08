@@ -20,4 +20,3 @@ class TestLoyalityUrl(TestCase):
     def test_cards_page(self):
         url = reverse('cards_info', args=['1'])
         self.assertEqual(resolve(url).func, cards_info)
-

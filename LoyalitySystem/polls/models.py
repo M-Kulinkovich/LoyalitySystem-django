@@ -67,10 +67,10 @@ class Orders(models.Model):
 
 
 def update_cards(sender, instance, **kwargs):
-        card = instance.card_id
-        if card is not None:
-            card.amount_purchase = sum([orders.sum_order for orders in card.orders.all()])
-            card.save()
+    card = instance.card_id
+    if card is not None:
+        card.amount_purchase = sum([orders.sum_order for orders in card.orders.all()])
+        card.save()
 
 
 post_save.connect(update_cards, sender=Orders)
@@ -79,7 +79,7 @@ post_save.connect(update_cards, sender=Orders)
 class Product(models.Model):
     order = models.ForeignKey(Orders, on_delete=models.CASCADE, related_name='products')
     name = models.CharField('Продукт', max_length=128, null=True)
-    price = models.FloatField('Цена продукта',)
+    price = models.FloatField('Цена продукта', )
     discount_price = models.FloatField('Цена со скидкой', default=0)
 
     def __str__(self):
@@ -96,18 +96,10 @@ class Product(models.Model):
 
 
 def update_order(sender, instance, **kwargs):
-        order = instance.order
-        if order is not None:
-            order.sum_order = sum([product.discount_price for product in order.products.all()])
-            order.save()
+    order = instance.order
+    if order is not None:
+        order.sum_order = sum([product.discount_price for product in order.products.all()])
+        order.save()
 
 
 post_save.connect(update_order, sender=Product)
-
-
-
-
-
-
-
-
